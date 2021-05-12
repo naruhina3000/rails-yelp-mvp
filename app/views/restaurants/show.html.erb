@@ -1,0 +1,44 @@
+<h1><%= @restaurant.name %></h1>
+
+<div class="container py-2">
+    <div class="row">
+        <div class="col-md-6">
+            <p class="card-text"><%= @restaurant.category.capitalize%></p>
+            <p class="card-text"><%= @restaurant.average_rating %></p>
+            
+            <p class="card-text">Address: <%= @restaurant.address%></p>
+            <p class="card-text">Phone: <%= @restaurant.phone_number%></p>
+        </div>
+    </div>
+</div>           
+
+<div class="container py-2">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h3>Leave a review</h3>
+                <%= simple_form_for [@restaurant, @review] do |f| %>
+                <%= f.input :rating, collection: Review::STARS %>
+                <%= f.input :content %>
+                <%= f.submit "Confirm" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-2">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Reviews</h3>
+            <% @restaurant.reviews.each do |review| %>
+            <p>Rating: <%= review.rating %></p>
+            <p><%= review.content %></p>
+            <hr>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<%= link_to 'Back', restaurants_path %>
+
